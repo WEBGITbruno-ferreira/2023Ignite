@@ -6,6 +6,8 @@ import  http from 'node:http' //para import, mudar tag type no package
 
 // Cabecalhos = Metadados, info adicional de como aquele dado por ser interpretado.
 
+// Http status code ( MDN )
+
 const users = []
 
 const server = http.createServer((req, res)=> {
