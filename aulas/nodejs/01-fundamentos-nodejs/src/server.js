@@ -11,6 +11,11 @@ import { routes } from './routes.js'
 // Http status code ( MDN )
 
 
+// 3 formas de enviar params
+//QueryParams //URL Stateful, parâmetros não sensiveis , filtros, paginação, não obrigatório
+// routeParams // parametros não nomeados, identificação de recurso
+// RequestBody // Informações de um form.
+
 
 const server = http.createServer(async (req, res) => {
   const { method, url } = req
@@ -18,7 +23,7 @@ const server = http.createServer(async (req, res) => {
   await json(req, res)
 
   const route = routes.find( route => {
-    return route.method === method && route.path === url 
+        return route.method === method && route.path === url 
   })
 
   // se encontrou uma rota, então executa a função padrão dela
