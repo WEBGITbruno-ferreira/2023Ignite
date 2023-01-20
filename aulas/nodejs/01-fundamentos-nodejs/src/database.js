@@ -3,16 +3,25 @@ import fs from 'node:fs/promises' // tratar arquivos
 
 //console.log(import.meta.url) // retorna o caminho do arquivo que está chamando
 
+const databasePath = new  URL('../db.json', import.meta.url) /// cria um caminho para um arquivo especificado no primeiro param
 
+//console.log(databasePath)
 
 export class Database {
   // # torna a PROPRIEDADE privada
   #database = {}
 
+  constructor () {
+    fs.readFile(databasePath, 'utf-8').then(data => {
+      this.#database = JSON.parse(data)
+    }).catch( ()=> {
+      this.#persist()
+    })
+  }
 
   #persist() {
     console.log("persist")
-    fs.writeFile('db.json', JSON.stringify(this.#database))
+    fs.writeFile(databasePath, JSON.stringify(this.#database))
 
   }
 

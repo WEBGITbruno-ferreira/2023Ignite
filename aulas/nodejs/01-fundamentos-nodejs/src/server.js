@@ -1,6 +1,6 @@
 import http from 'node:http' //para import, mudar tag type no package
 import { json } from './middlewares/json.js'
-import { Database } from './middlewares/database.js'
+import { Database } from './database.js'
 
 //Stateful - Stateles
 
