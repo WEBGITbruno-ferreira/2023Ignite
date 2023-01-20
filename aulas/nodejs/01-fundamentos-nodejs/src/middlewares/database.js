@@ -1,12 +1,17 @@
-import fs from 'node:fs/promises'
+import fs from 'node:fs/promises' // tratar arquivos
 // Dentro do database posso salvar muitas coisas
+
+//console.log(import.meta.url) // retorna o caminho do arquivo que está chamando
+
+
 
 export class Database {
   // # torna a PROPRIEDADE privada
   #database = {}
 
-  #persist() {
 
+  #persist() {
+    console.log("persist")
     fs.writeFile('db.json', JSON.stringify(this.#database))
 
   }
@@ -23,6 +28,7 @@ export class Database {
       this.#database[table] = [data]
     }
 
+    this.#persist();
     return data;
   }
 
