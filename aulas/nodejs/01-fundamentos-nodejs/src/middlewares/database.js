@@ -1,8 +1,15 @@
+import fs from 'node:fs/promises'
 // Dentro do database posso salvar muitas coisas
 
 export class Database {
   // # torna a PROPRIEDADE privada
   #database = {}
+
+  #persist() {
+
+    fs.writeFile('db.json', JSON.stringify(this.#database))
+
+  }
 
   select (table) {
     const data = this.#database[table] ?? []
@@ -15,6 +22,8 @@ export class Database {
     } else {
       this.#database[table] = [data]
     }
+
+    return data;
   }
 
 
