@@ -1,4 +1,4 @@
-import  http from 'node:http' //para import, mudar tag type no package
+import http from 'node:http' //para import, mudar tag type no package
 
 //Stateful - Stateles
 
@@ -10,31 +10,44 @@ import  http from 'node:http' //para import, mudar tag type no package
 
 const users = []
 
-const server = http.createServer((req, res)=> {
-  const { method, url} = req
+const server = http.createServer(async (req, res) => {
+  const { method, url } = req
 
-  if ( method === 'GET' && url === '/users') {
-    users.push({
-      id : 1,
-      name: 'John',
-      email: 'john@example.com'
-    })
+  const buffers = []
+
+  for await (const chunk of req) {
+    buffers.push(chunk)
+  }
+
+  try {
+    req.body = JSON.parse(Buffer.concat(buffers).toString())
+  } catch {
+    req.body = null
+
+  }
+
+  console.log(req.body)
+
+  if (method === 'GET' && url === '/users') {
 
     return res.
-    setHeader('Content-Type', 'application/json')
-    .end(JSON.stringify(users))
+      setHeader('Content-Type', 'application/json')
+      .end(JSON.stringify(users))
   }
 
-  if ( method === 'POST' && url === '/users') {
+  if (method === 'POST' && url === '/users') {
+
+    const { name, email } = req.body
+
     users.push({
-      id : 1,
-      name: 'John',
-      email: 'john@example.com'
+      id: 1,
+      name: name,
+      email: email
     })
-    return res.end('Criar usuários')
+    return res.writeHead(201).end()
   }
 
-  return res.end('hellos')
+  return res.writeHead(404).end()
 
 })
 
