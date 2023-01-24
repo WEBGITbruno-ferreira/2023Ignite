@@ -29,5 +29,5 @@ fetch ('http://localhost:3339', {
 }).then(response => {
   return response.text()
 }).then( data => {
-  console.log(data)
+  //console.log(data)
 })

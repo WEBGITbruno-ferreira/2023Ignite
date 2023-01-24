@@ -23,15 +23,17 @@ const server = http.createServer(async (req, res) => {
   await json(req, res)
 
   const route = routes.find( route => {
-        return route.method === method && route.path === url 
+        return route.method === method && route.path.test(url) 
   })
 
   // se encontrou uma rota, então executa a função padrão dela
   if (route) {
+    const routeParams = req.url.match(route.path)
+    console.log(routeParams)
     return route.handler(req, res)
   }
 
-  console.log(route)
+ // console.log(route)
 
   return res.writeHead(404).end()
 

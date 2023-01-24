@@ -20,7 +20,7 @@ export class Database {
   }
 
   #persist() {
-    console.log("persist")
+  //  console.log("persist")
     fs.writeFile(databasePath, JSON.stringify(this.#database))
 
   }
