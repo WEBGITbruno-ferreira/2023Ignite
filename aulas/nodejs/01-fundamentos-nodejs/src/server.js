@@ -29,7 +29,12 @@ const server = http.createServer(async (req, res) => {
   // se encontrou uma rota, então executa a função padrão dela
   if (route) {
     const routeParams = req.url.match(route.path)
-    console.log(routeParams)
+   
+
+    req.params = {...routeParams.groups}
+
+ 
+
     return route.handler(req, res)
   }
 
