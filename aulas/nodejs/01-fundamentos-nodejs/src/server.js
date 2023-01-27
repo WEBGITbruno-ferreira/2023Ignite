@@ -1,6 +1,7 @@
 import http from 'node:http' //para import, mudar tag type no package
 import { json } from './middlewares/json.js'
 import { routes } from './routes.js'
+import { extractQueryParams } from './utils/extract-query-params.js'
 
 //Stateful - Stateles
 
@@ -29,9 +30,11 @@ const server = http.createServer(async (req, res) => {
   // se encontrou uma rota, então executa a função padrão dela
   if (route) {
     const routeParams = req.url.match(route.path)
-   
+  
 
-    req.params = {...routeParams.groups}
+    const {query, ...params} = routeParams.groups
+    req.params = params
+    req.query = query ? extractQueryParams(query) : {}
 
  
 
