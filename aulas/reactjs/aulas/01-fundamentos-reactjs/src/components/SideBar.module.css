@@ -1,31 +1,55 @@
 .sidebar {
-
-background: var(--gray-800);
-border-radius: 8px;
-overflow: hidden;  /*interessante */
-
+  background: var(--gray-800);
+  border-radius: 8px;
+  overflow: hidden; /*interessante */
 }
 
-.cover{
+.cover {
   width: 100%;
   height: 72px;
   object-fit: cover; /*interessante */
-
 }
 
-.profile{ 
+.profile {
   display: flex;
-  flex-direction: column;}  /*interessante */
+  flex-direction: column;
+  align-items: center;
+  /* margin-top: -2rem;*/
+  margin-top: calc(-2rem);
+} /*interessante */
 
+.avatar {
+  width: calc(
+    3rem + 12px
+  ); /*solucao 2 alternativa ao box sizing initial, calculando as margens ) */
+  height: calc(3rem + 12px);
+  border-radius: 8px;
+  border: 4px solid var(--gray-800);
+  /*box-sizing: initial;*/
+   /* margin-top: -2rem;*/
+  outline: 2px solid var(--green-500);
+ 
+}
 
-.sidebar footer { 
+.profile strong {
+  margin-top: 1rem;
+  color: var(--gray-100);
+  line-height: 1.6;
+}
+
+.profile span {
+  font-size: 0.875rem;    /*0.875 x 16  = 14px */
+  color: var(--gray-100);
+  line-height: 1.6;
+}
+
+.sidebar footer {
   border-top: 1px solid var(--gray-600);
   margin-top: 1.5rem;
-  padding: 1.5rem 2rem 2rem
+  padding: 1.5rem 2rem 2rem;
 }
 
 .sidebar footer a {
-  
   background: transparent;
   color: var(--green-500);
   border: 1px solid var(--green-500);
@@ -37,4 +61,14 @@ overflow: hidden;  /*interessante */
   text-decoration: none;
   align-items: center;
   justify-content: center;
+
+  gap: 0.3rem;
+
+  transition: color 0.1s, background-color 0.1s;
+}
+
+.sidebar footer a:hover{
+  background: var(--green-500);
+  color: var(--white-500)
+ 
 }
