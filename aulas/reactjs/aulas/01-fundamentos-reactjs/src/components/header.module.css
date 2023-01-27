@@ -1,0 +1,8 @@
+/* COM MODULE CSS, O CSS FICARÁ EXCLUSIVO PARA O COMPONENT */
+/* VER BIBLIOTECA MODULECSS, SUPORTADA PELO VITE */
+
+
+.header{
+  background: #333;
+  height: 80px;
+}
