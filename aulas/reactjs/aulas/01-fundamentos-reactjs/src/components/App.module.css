@@ -10,3 +10,14 @@
   align-items: flex-start;
 
 }
+
+
+@media(max-width: 768px){
+
+  html {
+    font-size: 87,5%;  /* 14 * 100 / 16 = 87,5% * regra de 3, pois 16 = 100 % /*/
+  }
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+}
