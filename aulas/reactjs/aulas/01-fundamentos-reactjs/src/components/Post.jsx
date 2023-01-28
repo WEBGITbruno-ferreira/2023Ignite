@@ -3,7 +3,7 @@ import styles from './Post.module.css'
 export function Post () {
   return (
 
-    <article className={styles.Post}> 
+    <article className={styles.post}> 
       <header>
           <div className={styles.author}> 
             <img className={styles.avatar} src="https://github.com/WEBGITbruno-ferreira.png"  alt="" />
@@ -20,7 +20,10 @@ export function Post () {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
          <p> Sed error numquam rerum magnam iusto hic, tempore, voluptatem maxime sint nisi eius sit blanditiis porro esse deserunt mollitia eos id omnis?</p>
          <p> <a href="https://github.com/WEBGITbruno-ferreira"> https://github.com/WEBGITbruno-ferreira </a> </p>
-         <p> <a href=""> #rocket #teste </a></p>
+         <p> <a href=""> #rocket </a> {' '}
+              <a href="">#teste </a> {' '}
+              <a href="">#teste </a>
+         </p>
       </div>
     </article>
   )
