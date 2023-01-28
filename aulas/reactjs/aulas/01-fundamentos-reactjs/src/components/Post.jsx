@@ -1,60 +1,78 @@
 import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import styles from "./Post.module.css";
+import { format, formatDistanceToNow } from "date-fns";
 
-export function Post() {
+import ptBR from "date-fns/locale/pt-BR";
+import { LineSegment } from "phosphor-react";
+
+// Necessita   author : { avatar_url: "", name:"", role: ""}
+// publishedAt : Data
+// contentPost : string
+/**/
+
+export function Post({ author, publishedAt, content }) {
+  const publisedDateFormatted = format(
+    publishedAt,
+    "d 'de' LLLL 'as' HH:mm'h'",
+    {
+      locale: ptBR,
+    }
+  );
+
+  const TimePastPublished = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  });
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-        <Avatar src="https://github.com/WEBGITbruno-ferreira.png"/> 
+          <Avatar src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong> Bruno Ferreira</strong>
-            <span> Web Dev</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title="2022-05-11 as 8h:00m" dateTime="2022-05-11 08:00:00">
-          {" "}
-          Públicado há 1h
+        <time
+          title={publisedDateFormatted}
+          dateTime={publishedAt.toISOString()}
+        >
+          {TimePastPublished}
         </time>
       </header>
 
       <div className={styles.content}>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
-        <p>
-          {" "}
-          Sed error numquam rerum magnam iusto hic, tempore, voluptatem maxime
-          sint nisi eius sit blanditiis porro esse deserunt mollitia eos id
-          omnis?
-        </p>
-        <p>
-          {" "}
-          <a href="https://github.com/WEBGITbruno-ferreira">
-            {" "}
-            https://github.com/WEBGITbruno-ferreira{" "}
-          </a>{" "}
-        </p>
-        <p>
-          {" "}
-          <a href=""> #rocket </a> <a href="">#teste </a> <a href="">#teste </a>
-        </p>
+      
+        {content.map((line) => {
+
+          if (line.type === "Paragraph") {
+            return <p> {line.content} </p>;
+          } else if (line.type === "Link") {
+            return (
+              <p>
+                <a href="#">{line.content} </a>
+              </p>
+            );
+          }
+        })}
       </div>
 
       <form className={styles.commentForm}>
         {" "}
         <strong> Deixe seu feedback</strong>
-        <textarea placeholder="deixe um comentário"/>
-        <footer> 
-        <button type="submit">  Publicar</button>
+        <textarea placeholder="deixe um comentário" />
+        <footer>
+          <button type="submit"> Publicar</button>
         </footer>
       </form>
 
-
       <div className={styles.commentList}>
-         <Comment/>
-         <Comment/>
-         <Comment/>
+        <Comment />
+        <Comment />
+        <Comment />
       </div>
     </article>
   );

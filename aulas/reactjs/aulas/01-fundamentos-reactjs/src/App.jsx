@@ -7,6 +7,65 @@ import "./global.css";
 import styles from "./components/App.module.css";
 
 
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: "https://github.com/WEBGITbruno-ferreira.png",
+      name: "Bruno Ferreira",
+      role: "CTO @ Brtech",
+    },
+    content: [
+      {
+        type: "Paragraph",
+        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      },
+      {
+        type: "Paragraph",
+        content:
+          "Sed error numquam rerum magnam iusto hic, tempore, voluptatem maxime",
+      },
+      {
+        type: "Paragraph",
+        content:
+          "sint nisi eius sit blanditiis porro esse deserunt mollitia eos id omnis?",
+      },
+      { type: "Link", content: "https://github.com/WEBGITbruno-ferreira" },
+      
+    ],
+    publishedAt: new Date('2023-01-03 20:00')
+  },
+
+  {
+    id: 1,
+    author: {
+      avatarUrl: "https://github.com/maykbrito.png",
+      name: "Mayk B.",
+      role: "CTO @ Rockets",
+    },
+    content: [
+      {
+        type: "Paragraph",
+        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      },
+      {
+        type: "Paragraph",
+        content:
+          "Sed error numquam rerum magnam iusto hic, tempore, voluptatem maxime",
+      },
+      {
+        type: "Paragraph",
+        content:
+          "sint nisi eius sit blanditiis porro esse deserunt mollitia eos id omnis?",
+      },
+      { type: "Link", content: "https://github.com/maykbrito" },
+      
+    ],
+    publishedAt: new Date('2023-01-20 20:00')
+  },
+];
+
+
 export function App() {
   return (
     <>
@@ -16,14 +75,14 @@ export function App() {
         <SideBar/>
         <main>
           
-          <Post
-            author="Bruno"
-            content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit molestiae debitis voluptatem laudantium id, nulla excepturi blanditiis, magni nam quod velit nisi corrupti reiciendis consequuntur incidunt tempore doloribus amet aspernatur."
-          />
-          <Post
-            author="Bruno 2"
-            content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit molestiae debitis voluptatem laudantium id, nulla excepturi blanditiis, magni nam quod velit nisi corrupti reiciendis consequuntur incidunt tempore doloribus amet aspernatur."
-          />
+          {posts.map( post => {
+            return (
+              <Post author = {post.author} content={post.content} publishedAt={post.publishedAt} />
+
+              
+            )
+          })}
+
 
         </main>
       </div>
