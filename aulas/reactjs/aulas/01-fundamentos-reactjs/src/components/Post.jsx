@@ -51,6 +51,11 @@ export function Post({ author, publishedAt, content }) {
     
   }
 
+  function  deleteComment(comment) {
+      console.log(`Deletar Comment ${comment}`)
+
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -75,7 +80,7 @@ export function Post({ author, publishedAt, content }) {
         {content.map((line, index) => {
           
           if (line.type === "Paragraph") {
-            return <p key={index}> {line.content} </p>;
+            return <p key={line.content}> {line.content} </p>;
           } else if (line.type === "Link") {
             return (
               <p key={index}>
@@ -103,7 +108,7 @@ export function Post({ author, publishedAt, content }) {
 
       <div className={styles.commentList}>
         {comments.map( (comm, index) => {
-         return < Comment key={index} content={comm} />
+         return < Comment key={comm} content={comm} onDeleteComment={deleteComment} />
         }) }
       </div>
     </article>
