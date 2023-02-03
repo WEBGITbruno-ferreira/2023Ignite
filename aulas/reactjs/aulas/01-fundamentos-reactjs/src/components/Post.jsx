@@ -46,14 +46,26 @@ export function Post({ author, publishedAt, content }) {
   }
 
   function handleNewCommentChange () {
+    event.target.setCustomValidity('Esse campo é obrigatório')
     setnewCommentText(event.target.value)
 
     
   }
 
-  function  deleteComment(comment) {
-      console.log(`Deletar Comment ${comment}`)
+  function  deleteComment(commentToDelete) {
+      console.log(`Deletar Comment ${commentToDelete}`)
 
+      const newListComment = comments.filter ((newComm)=> {
+        return  newComm !== commentToDelete
+      })
+
+
+      setComments(newListComment)
+  }
+
+
+  function handleNewCommentInvalid ( ) {
+    event.target.setCustomValidity('Esse campo é obrigatório')
   }
 
   return (
@@ -100,9 +112,11 @@ export function Post({ author, publishedAt, content }) {
           name="comment" 
           placeholder="deixe um comentário" 
           value={newCommentText}
+          required={true}
+          onInvalid={handleNewCommentInvalid}
           onChange={handleNewCommentChange}/>
         <footer>
-          <button type="submit"> Publicar</button>
+          <button type="submit" disabled={newCommentText.length===0}> Publicar</button>
         </footer>
       </form>
 
