@@ -75,9 +75,9 @@ export function App() {
         <SideBar/>
         <main>
           
-          {posts.map( post => {
+          {posts.map( (post, index) => {
             return (
-              <Post author = {post.author} content={post.content} publishedAt={post.publishedAt} />
+              <Post key={index} author = {post.author} content={post.content} publishedAt={post.publishedAt} />
 
               
             )
