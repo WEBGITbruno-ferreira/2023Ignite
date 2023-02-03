@@ -20,6 +20,7 @@ export function Post({ author, publishedAt, content }) {
 
   const [comments, setComments] = useState(['post primeiro'])
 
+  const [newCommentText, setnewCommentText] = useState('')
 
 
   const publisedDateFormatted = format(
@@ -37,9 +38,17 @@ export function Post({ author, publishedAt, content }) {
 
   function handleCreateNewComment() {
     event.preventDefault()
-    comments.push()
-    console.log("oi")
-    setComments([...comments, comments.length++])
+  //  console.log(event.target.comment.value)
+   // const newCommentText = e.value
+    setComments([...comments, newCommentText])
+
+    setnewCommentText('')
+  }
+
+  function handleNewCommentChange () {
+    setnewCommentText(event.target.value)
+
+    
   }
 
   return (
@@ -82,7 +91,11 @@ export function Post({ author, publishedAt, content }) {
       className={styles.commentForm}>
         {" "}
         <strong> Deixe seu feedback</strong>
-        <textarea placeholder="deixe um comentário" />
+        <textarea 
+          name="comment" 
+          placeholder="deixe um comentário" 
+          value={newCommentText}
+          onChange={handleNewCommentChange}/>
         <footer>
           <button type="submit"> Publicar</button>
         </footer>
@@ -90,7 +103,7 @@ export function Post({ author, publishedAt, content }) {
 
       <div className={styles.commentList}>
         {comments.map( (comm, index) => {
-         return < Comment content={comm} />
+         return < Comment key={index} content={comm} />
         }) }
       </div>
     </article>
