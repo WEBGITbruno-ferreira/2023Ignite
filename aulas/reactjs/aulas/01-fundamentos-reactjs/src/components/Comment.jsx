@@ -21,6 +21,32 @@ function handleLikeComment(){
   setLikeCount(likeCount + 1)
 }*/
 
+/* Closures no react 
+ cuidado ao tentar chamar o setLikeCount, diversas vezes seguidas. 
+
+ setLikeCount(likes + 1)
+ setLikeCount(likes + 1)
+ setLikeCount(likes + 1)
+
+ por baixo dos panos dentro deste constes a variavel do state , é sempre zero, portanto o valor será sempre o antigo 
+
+ solução 
+
+ const newLikeCount = likeCount + 1  // a Var like cont é atualizada no mesmo contexto / momento
+
+ setLikeCount(newLikeCount)
+
+ ou 
+
+ setLikeCount((valorMaisrecenteDoState)=>{
+   return valorMaisrecenteDoState + 1
+ })
+
+
+
+
+*/
+
   return (
     <div className={styles.comment}>
        <Avatar hasBorder={false} src="https://github.com/WEBGITbruno-ferreira.png"/> 
@@ -53,3 +79,6 @@ function handleLikeComment(){
     </div>
   );
 }
+
+
+
