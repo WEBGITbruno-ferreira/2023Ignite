@@ -14,9 +14,20 @@ import { useState } from "react";
 
 //estado. variaveis que o componente deve monitorar
 
+interface Author {
+  name: string,
+  role: string,
+  avatarUrl: string
+}
 
+interface PostProps {
+   author : Author, 
+   publishedAt : Date,
+   content : string
 
-export function Post({ author, publishedAt, content }) {
+}
+
+export function Post({ author, publishedAt, content }: PostProps) {
 
   const [comments, setComments] = useState(['post primeiro'])
 
