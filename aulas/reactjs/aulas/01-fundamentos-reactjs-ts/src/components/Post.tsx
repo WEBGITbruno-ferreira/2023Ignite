@@ -5,7 +5,7 @@ import { format, formatDistanceToNow } from "date-fns";
 
 import ptBR from "date-fns/locale/pt-BR";
 import { LineSegment } from "phosphor-react";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 
 // Necessita   author : { avatar_url: "", name:"", role: ""}
 // publishedAt : Data
@@ -20,10 +20,16 @@ interface Author {
   avatarUrl: string
 }
 
+// indo alem na tipagem, definindo opçoes possiveis para string
+interface Content {
+   type: 'Paragraph' | 'Link',
+   content: string
+}
+
 interface PostProps {
    author : Author, 
    publishedAt : Date,
-   content : string
+   content : Content[]
 
 }
 
@@ -47,7 +53,7 @@ export function Post({ author, publishedAt, content }: PostProps) {
     addSuffix: true,
   });
 
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent ) {
     event.preventDefault()
   //  console.log(event.target.comment.value)
    // const newCommentText = e.value
@@ -56,14 +62,19 @@ export function Post({ author, publishedAt, content }: PostProps) {
     setnewCommentText('')
   }
 
-  function handleNewCommentChange () {
+  function handleNewCommentChange (event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('Esse campo é obrigatório')
     setnewCommentText(event.target.value)
 
     
   }
 
-  function  deleteComment(commentToDelete) {
+  function handleNewCommentInvalid ( event : InvalidEvent<HTMLTextAreaElement>) {
+    event.target.setCustomValidity('Esse campo é obrigatório')
+  }
+
+
+  function  deleteComment(commentToDelete : string) {
       console.log(`Deletar Comment ${commentToDelete}`)
 
       const newListComment = comments.filter ((newComm)=> {
@@ -75,9 +86,6 @@ export function Post({ author, publishedAt, content }: PostProps) {
   }
 
 
-  function handleNewCommentInvalid ( ) {
-    event.target.setCustomValidity('Esse campo é obrigatório')
-  }
 
   //clean code
   const isNewCommentEmpty = newCommentText.length===0

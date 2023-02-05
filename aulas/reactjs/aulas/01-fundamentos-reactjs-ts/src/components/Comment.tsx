@@ -3,9 +3,14 @@ import { useState } from "react";
 import { Avatar } from "./Avatar";
 import styles from "./Comment.module.css";
 
+/* tipando  funcao  e props geral */
+interface Content {
+  content : string,
+  onDeleteComment : (comment : string) => void
+}
 
 
-export function Comment({content, onDeleteComment}) {
+export function Comment({content, onDeleteComment}: Content ) {
 
 const [likeCount, setLikeCount] = useState (0)
 
