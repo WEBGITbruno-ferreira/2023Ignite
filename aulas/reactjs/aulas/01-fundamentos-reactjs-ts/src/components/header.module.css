@@ -1,0 +1,14 @@
+/* COM MODULE CSS, O CSS FICARÁ EXCLUSIVO PARA O COMPONENT */
+/* VER BIBLIOTECA MODULECSS, SUPORTADA PELO VITE */
+
+
+.header{
+  background: var(--gray-800);
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 0;
+}
+
+.header img {
+  height: 2rem;
+}
