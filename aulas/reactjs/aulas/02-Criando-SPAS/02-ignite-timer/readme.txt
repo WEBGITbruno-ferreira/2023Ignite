@@ -15,3 +15,9 @@ Ajuda  a  criar os temas !
 
 Macete para  fazer o themes mostrar as props, declarando uma nova interface, 
 sobrescrevendo a tipagem 
+
+//testando o tslint após instalação das  extensões e também do layout pronto da rocketseat
+// poderia rodar o eslini init , mas com layout pronto fica mais simples. 
+
+
+npx eslint src --ext .ts,.tsx
