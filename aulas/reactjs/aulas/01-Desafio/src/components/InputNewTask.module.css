@@ -7,9 +7,9 @@
   gap: 8px;
 
   position: absolute;
-  width: 736px;
+  width: 46rem;
   height: 54px;
-  left: calc(50% - 736px / 2);
+ /* left: calc(50% - 736px / 2);*/
   top: 173px;
 }
 
