@@ -1,17 +1,33 @@
 
 import { PlusCircle } from "phosphor-react";
+import { useState } from "react";
 import styles from './InputNewTask.module.css' //importando usando modules, requer o nome
 
 
-function handleAddNewTask() {
 
-}
+export function InputNewTask ({tasksList, onAddTasks}) {
 
-export function InputNewTask () {
+  const [newTaskAdd, setNewTaskAdd] = useState('')
+
+  function handleAddNewTask() {
+
+      let commentInsert =  newTaskAdd
+      let newID = tasksList.length
+   
+      let newTaskList = [...tasksList, {id : newID+1, isSelected: true,
+        taskMsg: commentInsert}]
+      onAddTasks(newTaskList)
+  }
+
+  function handleChangeComment () {
+    setNewTaskAdd(event.target.value)
+  }
+
+
   return (
 
       <div className={styles.inputNewTask} > 
-      <input  placeholder='Adicione uma nova tarefa' type="text" />
+      <input  onBlur={handleChangeComment} placeholder='Adicione uma nova tarefa' type="text" />
       <button onClick={handleAddNewTask} title="Adicionar tarefa">
              Criar  <PlusCircle size={16} />
       </button>
