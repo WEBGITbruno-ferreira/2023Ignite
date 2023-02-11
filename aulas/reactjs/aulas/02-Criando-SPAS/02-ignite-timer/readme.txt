@@ -11,3 +11,7 @@ Podem acessar as props no CSS
 
 
 Ajuda  a  criar os temas !
+
+
+Macete para  fazer o themes mostrar as props, declarando uma nova interface, 
+sobrescrevendo a tipagem 
