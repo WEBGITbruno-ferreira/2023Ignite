@@ -21,6 +21,19 @@ function handleChangeSelect (itemId){
 
 }
 
+function handleDeleteSelected (itemId){
+
+ // let newTaskList = [...tasksList]
+
+  //console.log(newTaskList)
+  let newTaskList = tasksList.filter((eachTask, index)=> eachTask.id !== itemId )
+  
+
+  onChangeTasks (newTaskList)
+  
+
+}
+
 
 
 function renderTask (listToRender) {
@@ -47,7 +60,11 @@ function renderTask (listToRender) {
       <input  onChange={ () => handleChangeSelect(taskItem.id)}className="buttonCheck" checked={taskItem.isSelected} type="checkbox" />
      
       <p className="textToDo" > {taskItem.taskMsg} </p>
+      
+      <button onClick={() =>handleDeleteSelected(taskItem.id)}>
       <img className="iconTrash" src={Trash}  width="30" height="30" alt="" />
+      </button>
+     
       </div>
       
       )

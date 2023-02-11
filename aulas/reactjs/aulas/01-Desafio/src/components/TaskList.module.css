@@ -93,6 +93,23 @@
 
  .taskToDo div p{ margin: auto 0; }
 
+ .taskToDo button {
+  background: transparent;
+  border: 0;
+  color: var(--gray-400);
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  margin: auto;
+}
+
+ 
+ 
+
  .taskToDo div img {
    margin: auto;
  }

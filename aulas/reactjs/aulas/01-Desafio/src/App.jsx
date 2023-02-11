@@ -4,23 +4,24 @@ import { InputNewTask } from './components/InputNewTask';
 import { TaskList } from './components/TaskList';
 import styles from "./components/App.module.css"
 import "./global.css";
+import uuid from 'react-native-uuid';
 
 
 let tasks = [
   { 
-    id : 1,
+    id : uuid.v4(),
     isSelected: true,
     taskMsg:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, voluptates, voluptatem provident iure sed inventore aperiam sequi unde accusantium, ",
   },
   {
-    id : 2,
+    id : uuid.v4(),
     isSelected: false,
     taskMsg:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, voluptates, voluptatem provident iure sed inventore aperiam sequi unde accusantium, ",
   },
   { 
-    id : 3,
+    id : uuid.v4(),
     isSelected: true,
     taskMsg:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, voluptates, voluptatem provident iure sed inventore aperiam sequi unde accusantium, ",
