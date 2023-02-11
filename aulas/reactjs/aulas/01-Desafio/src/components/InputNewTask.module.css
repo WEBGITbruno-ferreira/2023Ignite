@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+ 
   padding: 0px;
   gap: 8px;
 
@@ -11,6 +11,13 @@
   height: 54px;
  /* left: calc(50% - 736px / 2);*/
   top: 173px;
+}
+
+form{
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 
 .inputNewTask input {
