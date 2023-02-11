@@ -31,12 +31,16 @@ let tasks = [
 function App() {
   const [count, setCount] = useState(0)
 
+  const [listTasks, setListTasks] = useState (tasks)
+
+  
+
   return (
     <>
     <Header/>
     <div className={styles.wrapper}> 
-    <InputNewTask />
-    <TaskList  tasksList ={tasks}/>
+    <InputNewTask  tasksList ={listTasks} onAddTasks = {setListTasks}/>
+    <TaskList  tasksList ={listTasks} onChangeTasks = {setListTasks} />
 
 
 

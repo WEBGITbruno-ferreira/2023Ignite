@@ -14,7 +14,7 @@ export function InputNewTask ({tasksList, onAddTasks}) {
       let commentInsert =  newTaskAdd
       let newID = tasksList.length
    
-      let newTaskList = [...tasksList, {id : newID+1, isSelected: true,
+      let newTaskList = [...tasksList, {id : newID+1, isSelected: false,
         taskMsg: commentInsert}]
       onAddTasks(newTaskList)
   }
