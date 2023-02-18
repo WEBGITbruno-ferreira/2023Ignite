@@ -1,6 +1,6 @@
 import { Play } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
-
+import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod' // usado quando não temos um export default
 
@@ -35,8 +35,16 @@ const newCylcleFormValidationSchema = zod.object({
 // variaveis aqui no interface.
 type NewCycleFormData = zod.infer<typeof newCylcleFormValidationSchema> // criando com base em outra variavel
 
+interface Cycle {
+  id: string
+  task: string
+  minutesAmount: number
+}
 // uncontrolled - Busca os valores dos inputs no submit do form, perdemos a fluidez e ganhamos  em desempenho
 export function Home() {
+  const [cycles, setCycles] = useState<Cycle[]>([])
+  const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
+
   // uso o register em cada input do form, e no onSubmit do form, coloco a funcao handleSubmit do userForm,
   // passando como parâmetro minha funcao
   const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
@@ -48,13 +56,21 @@ export function Home() {
   })
 
   function handleCreateNewCycle(data: NewCycleFormData) {
-    console.log(data)
+    const newCycle: Cycle = {
+      id: String(new Date().getTime()),
+      task: data.task,
+      minutesAmount: data.minutesAmount,
+    }
+
+    setCycles((state) => [...state, newCycle]) // closures, faço no formato de function
+    setActiveCycleId(newCycle.id)
     reset()
   }
-
+  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
   const task = watch('task')
   const isSubmitDisabled = !task
 
+  console.log(activeCycle)
   // return dos erros do formulário
   // console.log(formState.errors)
 
