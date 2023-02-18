@@ -1,0 +1,21 @@
+.wrapper{
+
+  max-width: 70rem;
+  margin: 1rem auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+
+}
+
+
+@media(max-width: 768px){
+
+  html {
+    font-size:87.5%;  /* 14 * 100 / 16 = 87,5% * regra de 3, pois 16 = 100 % /*/
+  }
+ 
+}
