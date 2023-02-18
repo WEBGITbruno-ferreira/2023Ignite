@@ -1,6 +1,9 @@
 import { Play } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod' // usado quando não temos um export default
+
 import {
   CountDownContainer,
   FormContainer,
@@ -11,6 +14,10 @@ import {
   TaskInput,
 } from './styles'
 
+const newCylcleFormValidationSchema = zod.object({
+  task: zod.string().min(1, 'Informe a tarefa'),
+  minutesAmount: zod.number().min(5).max(60),
+})
 // formulario controlados ou  uncontrolled
 // controlados, armazenando os valores dos input no estado, monitorando as vars em tempo real / Pode ser um problema para renderização do react, que sempre  que alteradmos um estado o react renderiza
 
@@ -18,7 +25,9 @@ import {
 export function Home() {
   // uso o register em cada input do form, e no onSubmit do form, coloco a funcao handleSubmit do userForm,
   // passando como parâmetro minha funcao
-  const { register, handleSubmit, watch } = useForm()
+  const { register, handleSubmit, watch, formState } = useForm({
+    resolver: zodResolver(newCylcleFormValidationSchema),
+  })
 
   function handleCreateNewCycle(data: any) {
     console.log(data)
@@ -26,6 +35,8 @@ export function Home() {
 
   const task = watch('task')
   const isSubmitDisabled = !task
+
+  console.log(formState.errors)
 
   return (
     <HomeContainer>
@@ -52,7 +63,7 @@ export function Home() {
             placeholder="00"
             step="5"
             min="5"
-            max="60"
+            /* max="60" */
             {...register('minutesAmount', { valueAsNumber: true })}
           />
           <span> minutos.</span>
