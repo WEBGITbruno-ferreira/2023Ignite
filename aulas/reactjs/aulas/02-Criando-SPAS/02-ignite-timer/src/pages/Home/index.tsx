@@ -1,28 +1,18 @@
 import { HandPalm, Play } from 'phosphor-react'
-import { useForm } from 'react-hook-form'
-import { useEffect, useState } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod' // usado quando não temos um export default
-import { differenceInSeconds } from 'date-fns'
+import { FormProvider, useForm } from 'react-hook-form'
+import { createContext, useState } from 'react'
 
 import {
-  CountDownContainer,
-  FormContainer,
   HomeContainer,
-  MinutesAmountInput,
-  Separator,
   StartCountdownButton,
   StopCountdownButton,
-  TaskInput,
 } from './styles'
+import { NewCycleForm } from './components/NewCycleForm'
+import { CountDown } from './components/CountDown'
+// import { FormProvider } from 'react-hook-form/dist/useFormContext'
+import * as zod from 'zod' // usado quando não temos um export default
+import { zodResolver } from '@hookform/resolvers/zod'
 
-const newCylcleFormValidationSchema = zod.object({
-  task: zod.string().min(1, 'Informe a tarefa'),
-  minutesAmount: zod
-    .number()
-    .min(1)
-    .max(60, 'O ciclo deve ser no máximo 60 minutos'),
-})
 // formulario controlados ou  uncontrolled
 // controlados, armazenando os valores dos input no estado, monitorando as vars em tempo real / Pode ser um problema para renderização do react, que sempre  que alteradmos um estado o react renderiza
 
@@ -33,10 +23,6 @@ const newCylcleFormValidationSchema = zod.object({
 // funcionalidades do TS, não enxergam variaveis do JS, portanto uso o TYPEOF ao criar essa nova interface
 // baseada no schema criado pelo ZOD anteriormente.
 
-// A principal vantagem de criar este estilo de interface, é que ao criar os valids do ZOD no schema, ele já reconhece as
-// variaveis aqui no interface.
-type NewCycleFormData = zod.infer<typeof newCylcleFormValidationSchema> // criando com base em outra variavel
-
 interface Cycle {
   id: string
   task: string
@@ -45,6 +31,28 @@ interface Cycle {
   interruptedDate?: Date
   finishedDate?: Date
 }
+
+interface CyclesContextType {
+  activeCycle: Cycle | undefined
+  activeCycleId: string | null
+  markCurrentCycleAsFinished: () => void
+  amountSecondsPassed: number
+  setSecondsPassed: (seconds: number) => void
+}
+export const CyclesContext = createContext({} as CyclesContextType)
+
+const newCylcleFormValidationSchema = zod.object({
+  task: zod.string().min(1, 'Informe a tarefa'),
+  minutesAmount: zod
+    .number()
+    .min(1)
+    .max(60, 'O ciclo deve ser no máximo 60 minutos'),
+})
+
+// A principal vantagem de criar este estilo de interface, é que ao criar os valids do ZOD no schema, ele já reconhece as
+// variaveis aqui no interface.
+type NewCycleFormData = zod.infer<typeof newCylcleFormValidationSchema> // criando com base em outra variavel
+
 // uncontrolled - Busca os valores dos inputs no submit do form, perdemos a fluidez e ganhamos  em desempenho
 export function Home() {
   const [cycles, setCycles] = useState<Cycle[]>([])
@@ -53,47 +61,31 @@ export function Home() {
 
   // uso o register em cada input do form, e no onSubmit do form, coloco a funcao handleSubmit do userForm,
   // passando como parâmetro minha funcao
-  const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
+  const newCycleForm = useForm<NewCycleFormData>({
     resolver: zodResolver(newCylcleFormValidationSchema),
     defaultValues: {
       task: '',
       minutesAmount: 0,
     },
   })
+  const { handleSubmit, watch, reset } = newCycleForm
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
-  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
 
-  useEffect(() => {
-    let interval: number
-    if (activeCycle) {
-      interval = setInterval(() => {
-        const secondsDifference = differenceInSeconds(
-          new Date(),
-          activeCycle.startDate,
-        )
-
-        if (secondsDifference > totalSeconds) {
-          setCycles((state) =>
-            state.map((cycle) => {
-              if (cycle.id === activeCycleId) {
-                return { ...cycle, finishedDate: new Date() }
-              } else {
-                return cycle
-              }
-            }),
-          )
-
-          clearInterval(interval)
+  function markCurrentCycleAsFinished() {
+    setCycles((state) =>
+      state.map((cycle) => {
+        if (cycle.id === activeCycleId) {
+          return { ...cycle, finishedDate: new Date() }
         } else {
-          setamountSecondsPassed(secondsDifference)
+          return cycle
         }
-      }, 1000)
-    }
+      }),
+    )
+  }
 
-    return () => {
-      clearInterval(interval)
-    }
-  }, [activeCycle, totalSeconds, activeCycleId])
+  function setSecondsPassed(seconds: number) {
+    setamountSecondsPassed(seconds)
+  }
 
   function handleCreateNewCycle(data: NewCycleFormData) {
     const newCycle: Cycle = {
@@ -123,20 +115,6 @@ export function Home() {
     setActiveCycleId(null)
   }
 
-  const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
-
-  const minutesAmount = Math.floor(currentSeconds / 60)
-  const secondsAmount = currentSeconds % 60
-
-  const minutes = String(minutesAmount).padStart(2, '0')
-  const seconds = String(secondsAmount).padStart(2, '0')
-
-  useEffect(() => {
-    if (activeCycle) {
-      document.title = `${minutes}:${seconds}`
-    }
-  }, [minutes, seconds, activeCycle])
-
   const task = watch('task')
   const isSubmitDisabled = !task
 
@@ -147,42 +125,21 @@ export function Home() {
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
-        <FormContainer>
-          <label htmlFor="task"> Vou trabalhar em </label>
-          <TaskInput
-            id="taskt"
-            type="text"
-            placeholder="Dê um nome para o seu projeto"
-            list="task-suggestion"
-            disabled={!!activeCycle}
-            {...register('task')}
-          />
-          <datalist id="task-suggestion">
-            <option value="Projeto 1" />
-            <option value="Projeto 2" />
-            <option value="Projeto 3" />
-            <option value="Projeto 4" />
-          </datalist>
-          <label htmlFor="minutesAmount"></label>
-          <MinutesAmountInput
-            id="minutesAmount"
-            type="number"
-            placeholder="00"
-            step="5"
-            min="1"
-            disabled={!!activeCycle}
-            /* max="60" */
-            {...register('minutesAmount', { valueAsNumber: true })}
-          />
-          <span> minutos.</span>
-        </FormContainer>
-        <CountDownContainer>
-          <span>{minutes[0]}</span>
-          <span>{minutes[1]}</span>
-          <Separator>:</Separator>
-          <span>{seconds[0]}</span>
-          <span>{seconds[1]}</span>
-        </CountDownContainer>
+        <CyclesContext.Provider
+          value={{
+            activeCycle,
+            activeCycleId,
+            markCurrentCycleAsFinished,
+            amountSecondsPassed,
+            setSecondsPassed,
+          }}
+        >
+          <FormProvider {...newCycleForm}>
+            {/* repasso todas as props para o formProvider  com a desestruturação acimas */}
+            <NewCycleForm />
+          </FormProvider>
+          <CountDown />
+        </CyclesContext.Provider>
 
         {activeCycle ? (
           <StopCountdownButton onClick={handleInterruptCycle} type="button">

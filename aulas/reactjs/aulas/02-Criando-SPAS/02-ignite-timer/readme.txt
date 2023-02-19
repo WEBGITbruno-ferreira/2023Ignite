@@ -21,3 +21,6 @@ sobrescrevendo a tipagem
 
 
 npx eslint src --ext .ts,.tsx
+
+ContextApi!   Usar o estado no componente por volta dos componentes com os quais preciso  compartilhar informações, então usar a context api 
+o Context.provider, é o que recebe as variaveis que quero compartilhar
