@@ -40,6 +40,7 @@ type NewCycleFormData = zod.infer<typeof newCylcleFormValidationSchema> // crian
 export function Home() {
   const { createNewCycle, interrupCurrentCycle, activeCycle } =
     useContext(CyclesContext)
+
   // uso o register em cada input do form, e no onSubmit do form, coloco a funcao handleSubmit do userForm,
   // passando como parâmetro minha funcao
   const newCycleForm = useForm<NewCycleFormData>({
@@ -49,7 +50,12 @@ export function Home() {
       minutesAmount: 0,
     },
   })
-  const { handleSubmit, watch /* reset */ } = newCycleForm
+  const { handleSubmit, watch, reset } = newCycleForm
+
+  function handleCreateNewCycle(data: NewCycleFormData) {
+    createNewCycle(data)
+    reset()
+  }
 
   const task = watch('task')
   const isSubmitDisabled = !task
@@ -60,7 +66,7 @@ export function Home() {
 
   return (
     <HomeContainer>
-      <form onSubmit={handleSubmit(createNewCycle)} action="">
+      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <FormProvider {...newCycleForm}>
           {/* repasso todas as props para o formProvider  com a desestruturação acimas */}
           <NewCycleForm />
