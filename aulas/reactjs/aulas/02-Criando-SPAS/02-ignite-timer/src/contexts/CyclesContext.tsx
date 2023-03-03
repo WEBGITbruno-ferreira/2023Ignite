@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useReducer, useState } from 'react'
+import { differenceInSeconds } from 'date-fns'
+import {
+  createContext,
+  ReactNode,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react'
 import {
   ActionTypes,
   addNewCycleAction,
@@ -33,22 +40,53 @@ export function CyclesContextProvider({
   children,
 }: CyclesContextProviderProps) {
   // REDUCER  RECEBE DOIS PARAMETROS, STATE E action
-  const [cyclesState, dispatch] = useReducer(cyclesReducer, {
-    cycles: [],
-    activeCycleId: null,
+  const [cyclesState, dispatch] = useReducer(
+    cyclesReducer,
+    {
+      cycles: [],
+      activeCycleId: null,
+    },
+    (initialState) => {
+      const storedStateAsJson = localStorage.getItem(
+        '@ignite-timer:cycles-state-1.0.0',
+      )
+
+      if (storedStateAsJson) {
+        return JSON.parse(storedStateAsJson)
+      }
+
+      return initialState
+    },
+  )
+
+  const { cycles, activeCycleId } = cyclesState
+  const activeCycle = cycles.find((cycle) => {
+    //  console.log('activeCycleId', cycle)
+    return cycle.id === activeCycleId
   })
 
-  const [amountSecondsPassed, setamountSecondsPassed] = useState(0)
-  const { cycles, activeCycleId } = cyclesState
+  const [amountSecondsPassed, setamountSecondsPassed] = useState(() => {
+    if (activeCycle) {
+      const secondsDifference = differenceInSeconds(
+        new Date(),
+        new Date(activeCycle.startDate),
+      )
+      return secondsDifference
+    } else {
+      return 0
+    }
+  })
+
+  useEffect(() => {
+    const stateJson = JSON.stringify(cyclesState)
+
+    localStorage.setItem('@ignite-timer:cycles-state-1.0.0', stateJson)
+  }, [cyclesState])
 
   // console.log(cyclesState)
   // console.log('cycles, activeCycleId', cycles, activeCycleId)
   // const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
   // console.log('cycles, activeCycleId', cycles, activeCycleId)
-  const activeCycle = cycles.find((cycle) => {
-    //  console.log('activeCycleId', cycle)
-    return cycle.id === activeCycleId
-  })
 
   function createNewCycle(data: CreateCycleData) {
     const newCycle: Cycle = {
