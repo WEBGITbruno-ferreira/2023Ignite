@@ -1,0 +1,36 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Desenvolvimento Web",
+      "type": "income",
+      "category": "Venda",
+      "price": 14000,
+      "createdAt": "2023-03-12T00:37:44.614Z"
+    },
+    {
+      "id": 2,
+      "description": "Hamburguer",
+      "type": "outcome",
+      "category": "Alimentação",
+      "price": 58,
+      "createdAt": "2023-03-12T00:37:44.614Z"
+    },
+    {
+      "description": "teste",
+      "price": 1,
+      "category": "teste",
+      "type": "income",
+      "createdAt": "2023-03-18T14:22:10.733Z",
+      "id": 3
+    },
+    {
+      "description": "Bandeija de ovos ",
+      "price": 15,
+      "category": "Alimentação",
+      "type": "outcome",
+      "createdAt": "2023-03-18T14:39:23.338Z",
+      "id": 4
+    }
+  ]
+}

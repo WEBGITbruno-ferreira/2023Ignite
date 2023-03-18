@@ -39,7 +39,7 @@ export const CyclesContext = createContext({} as CyclesContextType)
 export function CyclesContextProvider({
   children,
 }: CyclesContextProviderProps) {
-  // REDUCER  RECEBE DOIS PARAMETROS, STATE E action
+  // REDUCER  RECEBE DOIS PARAMETROS, Funcao e valor inicial
   const [cyclesState, dispatch] = useReducer(
     cyclesReducer,
     {

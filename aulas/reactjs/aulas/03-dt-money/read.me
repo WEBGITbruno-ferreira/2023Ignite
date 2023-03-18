@@ -1,0 +1,218 @@
+Aula 01 
+
+para  usar o styled components. 
+
+Sempre  colocar o theme provider por volta de tudo no  app 
+No style global , usar o o create globalstyle
+
+styled componente com o TS necessita 
+de um arquivo de tipagem , @types/styled.d.ts // Melhor  copiar, qualquer erro o TS não funciona, verificar imports
+
+definição dos styles global
+
+colocar o GlobalStyle (provider),  no APP.tsx
+
+importação de fontes / no index.html
+
+Aula 02 : Component Header
+
+
+Criando  header, dica de tamanho de tela FULL com  estilização para monitores  grande, 
+como fazer isso dentro de  divs diferentes é  a sacada ,
+alinhamento de body e header ver isso 
+
+Aula 03: Component Summary
+Alinhamento de cards easy mod
+
+Aula 04 : Tabela de transações
+Props para o styled component, 
+formatacao de tabela easy  mod 
+
+
+Aula 05: Component Search
+Estilização fácil de button e input , alinhamento de button 
+
+
+Aula 06: Criando modal acessível 
+Cuidar com acessibilidade
+ariakit
+headlessui
+chakra ui ( não recomendado, traz estilizacao )
+radix-ui ( Mano tem tudo pronto , elementos limpos de formatação , 
+
+Colocar elemento por volta de onde teremos  o modal
+
+Propriedade do Dialog.trigger aschild, aproveita o botão filho , não cria novo botão 
+Portal, massa, um HTML fora do elemento onde está 
+overlay, fundo preto 
+Title, ajuda no leitor de tela
+
+
+Aula  07: Estilizando Modal 
+Hack para  centralizar transform: translate(-50%, -50%)
+
+
+Aula 08 : Botoões de entrada e saída
+estilização
+
+Aula 09: Radio button acessivel 
+Formatando a radio button com styled  components:
+
+2 ------- CONEXAO COM A  API -------
+
+
+Aula 01 : Configurando JsonServer
+cada prop passada para o objeto, pode ser pensado como uma entidade da 
+nossa aplicação . 
+
+npx json-server server.json -p 3335 -w -d 500
+ http://localhost:3335/transactions
+
+"dev:server" : "json-server server.json -p 3335 -w -d 500",
+npm run dev:server
+
+Aula 02 : Realizando requisição http
+
+Fetch para chamar  aPi 
+criando  await/async de forma elegante e chamando dentro do useEffect
+
+
+Aula 03 : Criando contexto das transações
+Multiplos components em diferentes pontos da aplicação  
+precisando de uma info === Context
+
+Tipagem no contexto
+
+Tipagem no provider com REactNode, observando que ele recebe através de props 
+o childrem e o childen desestruturado  é do tipo TransactionProviderProps
+
+exportando o context e  importando nas páginas onde vou precisar utilizar os dados. 
+UseContext
+
+
+Aula 04 : Calculando resumo das transações
+
+Utilizando reduce de forma simples
+
+
+Aula 05 : Formatação de valores
+Legal, exportando functions de formatação de valores
+
+
+
+Aula 06 : Criando Hook para o resumo 
+
+Criando uma function separada para fazer o calc do summary e exportando ela, 
+no formato  use***** por convenção 
+
+
+Aula 07 : Aplicando react Hook forma
+npm i react-hook-form zod
+npm i @hookform/resolvers
+
+tipagem no useForm, schema, tipagem typeof <schema
+alteração do Onsubmit do form para nossa funcao 
+tratando props do botão com  isSubmitting do useForm
+
+criando form no modal 
+
+Aula 08 : Controlled components
+inserindo valores de inputs não nativos do HTML
+Controlled / Uncontrolled
+
+propriedade Control do useForm, para inserir valores quando o mesmo não vem do component HTML nativo. 
+
+Aula 09 : Buscando Transações.
+Conhecendo o FETCH e utilizando o q-  para busca de texto
+
+Aula 10: Axios 
+na pasta /lib.ts
+simplificado muito 
+
+Aula 11 : criando-nova-transacao
+SHORT SYNTAX NO objeto
+reset de formulário
+atualizando as transações
+passando a chamada de criação de transação para dentro do contexto e exportando a função que chama a API 
+
+
+Aula 12 : Eslint correção de formatacao
+ npm i eslint @rocketseat/eslint-config -d
+ arquivo de config .eslintrc.json
+
+//rodar para mostrar errors
+npx eslint src --ext .ts,.tsx
+
+no package.json
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+
+
+
+
+Performance = 
+
+01 - React dev tolls
+
+02- Aplicando Context Selectors
+Evitando  render desnecessário 
+
+npm i use-context-selector scheduler
+
+
+03-Usecallback
+
+Evitar que alguma  função seja recriada, observando somente a necessidade 
+de acordo com o array de dependencies
+
+
+04 - Aplicando o MEMO
+
+Pq um componente renderiza.. 
+
+Hooks Change - Estado contexto , reducer
+Props Change - Mudou props
+Parent rerender = Pai renderizou
+
+qual o fluxo de render?
+
+Primeiro  o react recria o html da interface do comp. 
+Segundo, compara a versão do html criada com a versão anterior 
+terceiro, se algo mudou, ele reescreve o HTML na tela  
+
+o Memo : 
+ Passo 0
+ 0.0 - Hooks changed, Props Changed ( deep comparison)
+ 0.1 - Comparar a versão anterior dos hooks e props]
+ 0.2 = SE mudou algo, ele vai permitir a nova renderizacao
+
+ useMemo
+
+ Evitar recriar variaveis 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
