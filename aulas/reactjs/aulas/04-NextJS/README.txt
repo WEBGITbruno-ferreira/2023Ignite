@@ -35,7 +35,24 @@ toda vez que alterar o _document, reiniciar o server
 deletar a pasta .next que possui cache se necessário
 Tudo que estiver dentro do _documento, será importado em todas páginas da app 
 
+------------------------------------------------------------------------
+
+AULA 05 : configurando-stitches
+Uma  alternativa ao styled componentes
+npm i @stitches/react
+padrão de export do stitches
+usa sintaxe JS no css
+para usar SSR, é necessário uma config que está na pág. do stitcher
+importar tag style do _document.tsx
+
+AULA 06: estilos-globais
+
+o App é um component que é carregado dentro da minha app. 
+importar dentro do _app.tsx
+configurar no styles\global.ts e  index.ts
 
 
+AULA06 - cabecalho-da-aplicacao
 
+tudo que for no _app.tsx, fica como "global"
 
