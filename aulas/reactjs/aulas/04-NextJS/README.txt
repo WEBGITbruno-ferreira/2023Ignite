@@ -16,3 +16,16 @@ accessível a página exigindo menos da interação server / back
 
 Aula 02 : Setando projeto 
 npx create-next-app@latest
+
+------------------------------------------------------------------------
+
+Aula 03 : criando-rotas-da-aplicacao
+
+File system routing ( roteamento baseado em arquivos físicos)
+todo arquivo dentro de pages é uma rota com mesmo nome do arquivo
+exemplo de rotas com param routes
+
+------------------------------------------------------------------------
+
+AULA 04 : configurando-documento-htm
+
