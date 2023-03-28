@@ -28,4 +28,14 @@ exemplo de rotas com param routes
 ------------------------------------------------------------------------
 
 AULA 04 : configurando-documento-htm
+no next, tudo são componentes
+importo fontes no _document.tsx no Head component da lib next/documento
+estrutura do _document
+toda vez que alterar o _document, reiniciar o server
+deletar a pasta .next que possui cache se necessário
+Tudo que estiver dentro do _documento, será importado em todas páginas da app 
+
+
+
+
 
