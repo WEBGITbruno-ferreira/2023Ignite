@@ -56,3 +56,28 @@ AULA06 - cabecalho-da-aplicacao
 
 tudo que for no _app.tsx, fica como "global"
 
+AULA07 - Imagens no next
+ApiReference da doc. do next 
+Automaticamente  redefine o tamanho da imagem de acordo com o tamnho que estamos  utilizando, 
+ganhando em  otimizacao
+Usar component do next/image
+
+AULA08 - Home estrutura
+Importando images, formatando carrosel 
+soma de variavel no css
+
+AULA09 - Carrousel
+npm i keen-slider
+
+
+AULA10 - Configurar STRIPE (Marketplace para produtos teste)
+
+
+AULA11 - Data Fetch no next
+
+
+
+
+
+
+
